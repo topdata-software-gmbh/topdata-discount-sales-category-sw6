@@ -228,6 +228,7 @@ class SalesCategoryManager
     public function __construct(
         private readonly EntityRepository $categoryRepository,
         private readonly EntityRepository $productRepository,
+        private readonly EntityRepository $productCategoryRepository,
         private readonly ConfigurationService $configService
     ) {
     }
@@ -273,8 +274,9 @@ class SalesCategoryManager
     }
 
     /**
-     * Assigns the given product IDs to the Sales category.
-     * Products already in the category are left untouched.
+     * Assigns the given product IDs to the Sales category by writing directly
+     * to the product_category mapping table. This preserves all existing category
+     * assignments — it only adds the Sales category, nothing else is touched.
      */
     public function assignProductsToSalesCategory(array $productIds, string $categoryId, Context $context): void
     {
@@ -282,17 +284,18 @@ class SalesCategoryManager
             return;
         }
 
-        $updates = array_map(static fn (string $id) => [
-            'id' => $id,
-            'categories' => [['id' => $categoryId]],
+        $entries = array_map(static fn (string $id) => [
+            'productId' => $id,
+            'categoryId' => $categoryId,
         ], array_values(array_unique($productIds)));
 
-        $this->productRepository->upsert($updates, $context);
+        $this->productCategoryRepository->upsert($entries, $context);
     }
 
     /**
-     * Removes the given product IDs from the Sales category.
-     * Only products that are currently in this category are affected.
+     * Removes the given product IDs from the Sales category by deleting rows
+     * from the product_category mapping table. Only the Sales category link is
+     * removed — all other category assignments remain untouched.
      */
     public function removeProductsFromSalesCategory(array $productIds, string $categoryId, Context $context): void
     {
@@ -300,12 +303,12 @@ class SalesCategoryManager
             return;
         }
 
-        $updates = array_map(static fn (string $id) => [
-            'id' => $id,
-            'categories' => [['id' => $categoryId, '_delete' => true]],
+        $entries = array_map(static fn (string $id) => [
+            'productId' => $id,
+            'categoryId' => $categoryId,
         ], array_values(array_unique($productIds)));
 
-        $this->productRepository->upsert($updates, $context);
+        $this->productCategoryRepository->delete($entries, $context);
     }
 
     /**
@@ -459,6 +462,7 @@ Replace the skeleton services with the real service wiring.
         <service id="Topdata\TopdataDiscountSalesCategorySW6\Service\SalesCategoryManager">
             <argument type="service" id="category.repository"/>
             <argument type="service" id="product.repository"/>
+            <argument type="service" id="product_category.repository"/>
             <argument type="service" id="Topdata\TopdataDiscountSalesCategorySW6\Service\ConfigurationService"/>
         </service>
 
