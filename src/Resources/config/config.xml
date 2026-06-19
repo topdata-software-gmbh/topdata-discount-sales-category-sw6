@@ -2,13 +2,25 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
-        <title>Basic Configuration</title>
-        <title lang="de-DE">Grundeinstellungen</title>
-        
-        <input-field>
-            <name>example</name>
-            <label>Example Configuration</label>
-            <label lang="de-DE">Beispiel Konfiguration</label>
+        <title>Sales Category Configuration</title>
+        <title lang="de-DE">Sales-Kategorie Konfiguration</title>
+
+        <input-field type="entity-single-select">
+            <name>salesCategoryId</name>
+            <entity>category</entity>
+            <label>Sales Category</label>
+            <label lang="de-DE">Sales-Kategorie</label>
+            <helpText>Products with active discounts will be assigned to this category.</helpText>
+            <helpText lang="de-DE">Produkte mit aktiven Rabatten werden dieser Kategorie zugewiesen.</helpText>
+        </input-field>
+
+        <input-field type="bool">
+            <name>autoCreateCategory</name>
+            <label>Auto-Create "Sales" Category</label>
+            <label lang="de-DE">"Sales"-Kategorie automatisch anlegen</label>
+            <helpText>If enabled and no category is selected, a "Sales" category will be created under the root on first sync.</helpText>
+            <helpText lang="de-DE">Wenn aktiviert und keine Kategorie ausgewählt ist, wird beim ersten Sync eine "Sales"-Kategorie unter dem Root angelegt.</helpText>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 </config>

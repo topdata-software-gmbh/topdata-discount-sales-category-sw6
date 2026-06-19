@@ -3,7 +3,8 @@ filename: "_ai/backlog/active/260619_1814__IMPLEMENTATION_PLAN__discount-sales-c
 title: "Implementation Plan: Discount Sales Category SW6"
 createdAt: 2026-06-19 18:14
 updatedAt: 2026-06-19 18:14
-status: draft
+status: completed
+completedAt: 2026-06-19 19:10
 priority: high
 tags: [shopware6, plugin, discounts, categories, prems, cli]
 estimatedComplexity: moderate
@@ -563,6 +564,7 @@ updatedAt: YYYY-MM-DD HH:mm
 planFile: "_ai/backlog/active/{YYMMDD_HHmm}__IMPLEMENTATION_PLAN__discount-sales-category.md"
 project: "TopdataDiscountSalesCategorySW6"
 status: completed
+completedAt: 2026-06-19 19:10
 filesCreated: 3
 filesModified: 4
 filesDeleted: 6

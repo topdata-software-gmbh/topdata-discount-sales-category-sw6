@@ -4,16 +4,27 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="Topdata\TopdataDiscountSalesCategorySW6\Controller\StorefrontExampleController" public="true">
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
+        <service id="Topdata\TopdataDiscountSalesCategorySW6\Service\ConfigurationService">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
 
-        <service id="Topdata\TopdataDiscountSalesCategorySW6\Controller\AdminApiExampleController" public="true">
-            <call method="setContainer">
-                <argument type="service" id="service_container"/>
-            </call>
+        <service id="Topdata\TopdataDiscountSalesCategorySW6\Service\DiscountProductResolver">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
+        <service id="Topdata\TopdataDiscountSalesCategorySW6\Service\SalesCategoryManager">
+            <argument type="service" id="category.repository"/>
+            <argument type="service" id="product.repository"/>
+            <argument type="service" id="product_category.repository"/>
+            <argument type="service" id="Topdata\TopdataDiscountSalesCategorySW6\Service\ConfigurationService"/>
+        </service>
+
+        <service id="Topdata\TopdataDiscountSalesCategorySW6\Command\SyncSalesCategoryCommand">
+            <argument type="service" id="Topdata\TopdataDiscountSalesCategorySW6\Service\ConfigurationService"/>
+            <argument type="service" id="Topdata\TopdataDiscountSalesCategorySW6\Service\DiscountProductResolver"/>
+            <argument type="service" id="Topdata\TopdataDiscountSalesCategorySW6\Service\SalesCategoryManager"/>
+            <argument type="service" id="product.repository"/>
+            <tag name="console.command"/>
         </service>
     </services>
 </container>
