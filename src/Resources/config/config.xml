@@ -5,14 +5,14 @@
         <title>Sales Category Configuration</title>
         <title lang="de-DE">Sales-Kategorie Konfiguration</title>
 
-        <input-field type="single-select">
+        <component name="sw-entity-single-select">
             <name>salesCategoryId</name>
             <entity>category</entity>
             <label>Sales Category</label>
             <label lang="de-DE">Sales-Kategorie</label>
             <helpText>Products with active discounts will be assigned to this category.</helpText>
             <helpText lang="de-DE">Produkte mit aktiven Rabatten werden dieser Kategorie zugewiesen.</helpText>
-        </input-field>
+        </component>
 
         <input-field type="bool">
             <name>autoCreateCategory</name>
