@@ -5,7 +5,7 @@
         <title>Sales Category Configuration</title>
         <title lang="de-DE">Sales-Kategorie Konfiguration</title>
 
-        <input-field type="entity-single-select">
+        <input-field type="single-select">
             <name>salesCategoryId</name>
             <entity>category</entity>
             <label>Sales Category</label>
