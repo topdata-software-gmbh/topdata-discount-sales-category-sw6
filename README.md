@@ -34,10 +34,12 @@ bin/console topdata:discount-sales:sync
 bin/console topdata:discount-sales:sync --dry-run
 ```
 
-> **Tip:** Set up a cron job (e.g., every hour) to keep the Sales category up to date
-> as discounts expire or new ones are created:
+> **Tip:** Set up a cron job to keep the Sales category up to date as discounts
+> expire or new ones are created. The command is fast (~0.6s) and idempotent,
+> so every 5–15 minutes is fine — adjust based on how quickly you need
+> newly discounted products to appear:
 > ```
-> * * * * * cd /path/to/shopware && bin/console topdata:discount-sales:sync
+> */5 * * * * cd /path/to/shopware && bin/console topdata:discount-sales:sync
 > ```
 
 ## Requirements
